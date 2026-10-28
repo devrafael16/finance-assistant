@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente Financeiro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Assistente Financeiro</h1>
+    </header>
+
+    <section id="resumo">
+        <div class="card">
+            <h2>Entradas</h2>
+            <p id="total-entradas">R$ 0,00</p>
+        </div>
+        <div class="card">
+            <h2>Saídas</h2>
+            <p id="total-saidas">R$ 0,00</p>
+        </div>
+        <div class="card">
+            <h2>Saldo Total</h2>
+            <p id="saldo-total">R$ 0,00</p>
+        </div>
+    </section>
+
+    <button id="btn-abrir-modal">+ Nova Transação</button>
+
+    <div id="modal-overlay">
+        <div id="modal-conteudo">
+            <button id="btn-fechar-modal">&times;</button>
+            <h2>Nova Transação</h2>
+            <form id="form-transacao">
+                <div class="campo">
+                    <label for="tipo">Tipo de transação</label>
+                    <select id="tipo" required>
+                        <option value="">Selecione...</option>
+                        <option value="entrada">Entrada de dinheiro</option>
+                        <option value="fixa">Conta fixa</option>
+                        <option value="parcelada">Compra parcelada</option>
+                    </select>
+                </div>
+
+                <div id="campos-entrada">
+                    <div class="campo">
+                        <label for="descricao-entrada">Descrição</label>
+                        <input type="text" id="descricao-entrada">
+                    </div>
+                    <div class="campo">
+                        <label for="valor-entrada">Valor</label>
+                        <input type="number" id="valor-entrada" step="0.01" min="0">
+                    </div>
+                </div>
+
+                <div id="campos-fixa">
+                    <div class="campo">
+                        <label for="descricao-fixa">Descrição</label>
+                        <input type="text" id="descricao-fixa" >
+                    </div>
+                    <div class="campo">
+                        <label for="valor-fixa">Valor</label>
+                        <input type="number" id="valor-fixa" step="0.01" min="0" >
+                    </div>
+                    <div class="campo">
+                        <label for="dia-vencimento">Dia do vencimento</label>
+                        <input type="number" id="dia-vencimento" min="1" max="31">
+                    </div>
+                </div>
+                <div id="campos-parcelada">
+                    <div class="campo">
+                        <label for="descricao-parcelada">Descrição</label>
+                        <input type="text" id="descricao-parcelada" >
+                    </div>
+                    <div class="campo">
+                        <label for="valor-parcelada">Valor</label>
+                        <input type="number" id="valor-parcelada" step="0.01" min="0" >
+                    </div>
+                    <div class="campo">
+                        <label for="data-compra">Data da compra</label>
+                        <input type="date" id="data-compra" >
+                    </div>
+                    <div class="campo">
+                        <label for="parcelas">Parcelas</label>
+                        <input type="number" id="parcelas" min="1" >
+                    </div>
+                    <div class="campo">
+                        <label for="vencimento-cartao">Dia de vencimento do cartão</label>
+                        <input type="number" id="vencimento-cartao" min="1" max="31" >
+                    </div>
+                </div>
+                <button type="submit" id="btn-cadastrar">Cadastrar conta</button>
+            </form>
+        </div>
+    </div>
+
+    <section id="lista-transacoes">
+        <h2>Histórico de Transações</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor Total</th>
+                    <th>Parcelas</th>
+                    <th>Vencimentos</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-corpo">
+
+            </tbody>
+        </table>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

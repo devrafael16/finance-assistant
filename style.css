@@ -1,0 +1,39 @@
+#modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#modal-overlay.ativo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-conteudo {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 400px;
+}
+
+#campos-fixa,
+#campos-parcelada,
+#campos-entrada {
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
