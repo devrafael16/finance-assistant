@@ -1,8 +1,46 @@
-Projeto finanças
+# Assistente Financeiro
 
-Por enquanto só construindo o código no arquivo index.html.
-Optei por recomeçar o projeto em virtude de ter parado a algumas semanas e ja ter me esquecido, e como não anotei nada, preferi apagar e recomeçar tudpo novamente. Como meu conhecimento em DOM ainda é muito raso e faz tempo que eu vi, tbm vai ser uma boa para poder praticar e entender na prática, além de praticar HTML, CSS e JavaScript.
-Hj 24/09 fiz o botão de fechar o modal, e comecei a implementação do forms dos campos requeridos. parei nas contas fixas.
-Próximo passo são as contas parceladas e começar a ajeitar tudo no CSS e fazer as interações da página com o JavaScript
+Fiz esse projeto pessoal com a intenção de me ajudar na minha organização financeira, sem depender de apps genéricos e pagos de finanças.
+Nessa primeira versão do programa fiz as funções básicas de cadastrar contas, separando por tipo (entradas, contas fixa e contas paceladas),
+coloquei tudo que julgava ser necessário, descrição, valor, parcelas, etc... Com 3 cards de resumo para facilitar o balanço geral das contas.  
 
-29/09. Hj retomei o projeto e terminei o HTML, fiz o form conta-parcelada, fiz a tebela de resumo e comecei no arquivo JS, com as variáveis para as rotas, tbm mexi no css para abrir e fechar o modal.
+## Screenshots
+![Tela principal](screenshots/tela-principal.png)
+![Modal de cadastro](screenshots/modal-parcelada.png)
+
+## Funcionalidades
+- Cadastro de conta fixa, compra parcelada e entrada
+- Cálculo automático do valor da parcela
+- Resumo de entradas, saídas e saldo
+- Exclusão de transações
+- Dados salvos no navegador (localStorage)
+
+## Tecnologias
+HTML, CSS e JavaScript puro (sem frameworks)
+
+## Como rodar
+Passo a passo: clonar o repositório, abrir o index.html no navegador.
+
+## Estrutura do projeto
+
+```
+assistente-financeiro/
+├── index.html        # Estrutura da página: cards, modal de cadastro e tabela
+├── style.css         # Estilização da interface
+├── script.js         # Lógica: cadastro, tabela, resumo e localStorage
+├── README.md         # Documentação do projeto
+└── screenshots/
+    ├── tela-principal.png
+    └── modal-parcelada.png
+```
+
+## O que aprendi
+Manipulação do DOM, eventos, localStorage/JSON, operador ternário...
+
+## Próximas versões
+- Editar transações
+- Confirmar pagamento de parcela
+- Filtro por mês e alertas de vencimento
+
+## Autor
+Rafael Henrique, [link do GitHub](https://github.com/devrafael16) [LinkedIn.](https://www.linkedin.com/in/dev-rafael16/)

@@ -1,3 +1,4 @@
+// ====== Elementos do DOM =====
 const btnAbrirModal = document.querySelector('#btn-abrir-modal')
 const btnFecharModal = document.querySelector('#btn-fechar-modal')
 const modalOverlay = document.querySelector('#modal-overlay')
@@ -11,13 +12,14 @@ const totalEntradas = document.querySelector('#total-entradas')
 const totalSaidas = document.querySelector('#total-saidas')
 const saldoTotal = document.querySelector('#saldo-total')
 
-//Função para abrir e fechar o modal
+// ===== Modal e formulário =====
 function alternarModal() {
     modalOverlay.classList.toggle('ativo')
 }
 
 btnAbrirModal.addEventListener('click', alternarModal)
 btnFecharModal.addEventListener('click', alternarModal)
+// Mostra só o bloco de campos do tipo escolhido e esconde os outros
 selectTipo.addEventListener('change', function(){
     const tipo = selectTipo.value
 
@@ -36,25 +38,30 @@ selectTipo.addEventListener('change', function(){
     }
 })
 
+// ===== Dados e localStorage =====
+// Carrega as transações salvas; se não houver nada (null), começa com lista vazia
 const transacoes = JSON.parse(localStorage.getItem('transacoes')) || []
 
+// Continua a numeração a partir do maior id salvo, para não repetir ids ao recarregar
 const listaIds = transacoes.map(function(t) {return t.id})
 
 const maiorId = Math.max(...listaIds)
 
 let contadorId = transacoes.length === 0 ? 0 : maiorId + 1
 
+// Converte o array em texto (JSON) e guarda no navegador
 function salvarLocalStorage() {
     localStorage.setItem('transacoes', JSON.stringify(transacoes))
 }
 
-//Formata a tabela para que cada coluna tenha os dados corretos
+// ===== Renderização =====
 function renderizarTabela() {
     tabelaCorpo.innerHTML = ''
 
     transacoes.forEach(function(transacao) {
         const linha = document.createElement('tr')
 
+        // Entrada não tem parcela nem vencimento, por isso usa uma linha mais simples
         if (transacao.tipo === 'entrada') {
             linha.innerHTML = `
             <td>${transacao.descricao}</td>
@@ -66,11 +73,12 @@ function renderizarTabela() {
             `
         } else {
         const valorParcela = transacao.valor / transacao.parcelas
+        // Fixa mostra "-"; parcelada mostra o valor da parcela e (parcela atual/total)
         linha.innerHTML = `
         <td>${transacao.descricao}</td>
         <td>R$ ${transacao.valor.toFixed(2)}</td>
         <td>${transacao.tipo === 'fixa' ? '-' : `R$ ${valorParcela.toFixed(2)} (${transacao.parcelaAtual}/${transacao.parcelas})`}</td>
-        <td>Dia ${transacao.vencimento || transacao.vencimentoCartao}</td>
+        <td>Dia ${transacao.vencimento}</td>
         <td>${transacao.tipo === 'fixa' ? 'Fixa' : 'Parcelada'}</td>
         <td><button class="btn-excluir" data-id="${transacao.id}">Excluir</button></td>
         `
@@ -79,7 +87,7 @@ function renderizarTabela() {
     })
 }
 
-//Atualiza os cards de resumo quando qualquer transação for adicionada ou excluida
+// Atualiza os cards de resumo quando qualquer transação for adicionada ou excluida
 function atualizarResumo() {
     let entradas = 0
     let saidas = 0
@@ -99,10 +107,13 @@ function atualizarResumo() {
     saldoTotal.textContent = 'R$ ' + (entradas - saidas).toFixed(2)
 }
 
-//Exclui a transação pelo id
+// ===== Cadastro e exclusão ======
+// O clique é escutado na tabela toda, porque os botões são criados pelo JS.
+// O data-id do botão diz qual transação apagar
 tabelaCorpo.addEventListener('click', function(event) {
     if (event.target.classList.contains('btn-excluir')) {
         const id = parseInt(event.target.dataset.id)
+        // findIndex acha a posição pelo id; splice remove 1 item nessa posição
         const index = transacoes.findIndex(function(t) {
             return t.id === id
         })
@@ -114,6 +125,7 @@ tabelaCorpo.addEventListener('click', function(event) {
 })
 
 formTransacao.addEventListener('submit', function(event) {
+    // preventDefault evita que a página recarregue ao enviar o formulário
     event.preventDefault()
     const tipo = selectTipo.value
 
@@ -134,6 +146,7 @@ formTransacao.addEventListener('submit', function(event) {
 
         renderizarTabela()
         atualizarResumo()
+        // Fecha o modal, limpa o formulário e esconde os blocos de campos
         alternarModal()
         formTransacao.reset()
         camposFixa.style.display = 'none'
@@ -192,5 +205,8 @@ formTransacao.addEventListener('submit', function(event) {
 
 
 })
+
+// ===== Início =====
+// Ao abrir a página, desenha na tela os dados que vieram do localStorage
 renderizarTabela()
 atualizarResumo()
