@@ -65,10 +65,11 @@ function renderizarTabela() {
             <td><button class="btn-excluir" data-id="${transacao.id}">Excluir</button></td>
             `
         } else {
+        const valorParcela = transacao.valor / transacao.parcelas
         linha.innerHTML = `
         <td>${transacao.descricao}</td>
         <td>R$ ${transacao.valor.toFixed(2)}</td>
-        <td>${transacao.tipo === 'fixa' ? '-' : transacao.parcelas + 'x'}</td>
+        <td>${transacao.tipo === 'fixa' ? '-' : `R$ ${valorParcela.toFixed(2)} (${transacao.parcelaAtual}/${transacao.parcelas})`}</td>
         <td>Dia ${transacao.vencimento || transacao.vencimentoCartao}</td>
         <td>${transacao.tipo === 'fixa' ? 'Fixa' : 'Parcelada'}</td>
         <td><button class="btn-excluir" data-id="${transacao.id}">Excluir</button></td>
@@ -153,6 +154,7 @@ formTransacao.addEventListener('submit', function(event) {
             valor: valorParcelada,
             data: dataCompra,
             parcelas: parcelas,
+            parcelaAtual : 1,
             vencimento: vencimentoCartao
         }
         transacoes.push(transacao)
